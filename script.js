@@ -1,17 +1,17 @@
-var fs = require('fs');
+var readlineSync = require('readline-sync');
 
-var rezultat1 = fs.readFileSync( __dirname + '/test.xml');
+var dimensiune = readlineSync.question('Dimensiune: ');
 
-console.log(typeof rezultat1);
-console.log(rezultat1.toString());
-
-// ------------------------------
-var rezultat2 = fs.readFileSync(
-  __dirname + '/test.xml',
-  {
-    encoding: 'utf8'
+var matrice = [];
+for (var i = 0; i < dimensiune; i++) {
+  var linie = [];
+  for (var j = 0; j < dimensiune; j++) {
+    var element = readlineSync.question('Elementul nr ' + (j + 1) + ' din linia ' + (i + 1) + ': ');
+    linie[j] = element;
   }
-  );
+  matrice[i] = linie;
+}
 
-console.log(typeof rezultat2);
-console.log(rezultat2);
+for (var i = 0; i < dimensiune; i++) {
+  console.log(matrice[i]);
+}
