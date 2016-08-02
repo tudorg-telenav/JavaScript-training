@@ -13,9 +13,14 @@
 
 // for edge cases change the algorithm
 
+// TODO: save already computed items in the database
+// then have small client programs that make calls to
+// the API and analyze the response
+
 
 var fs = require('fs');
 var uuid = require('node-uuid');
+var inside = require('point-in-polygon');
 
 
 
@@ -89,12 +94,38 @@ var ItemGenerator = function() {
     }
 
     this.getSquare = function(theTwoPoints) {
+        // [{lat: ..., lon: ...}, {lat: ..., lon: ...}]
         var theFourPoints = [];
+        var p1 = theTwoPoints[0];
+        var p2 = theTwoPoints[1];
 
-
-
+        theFourPoints.push(p1);
+        theFourPoints.push({
+            lat: p1.lat,
+            lon: p2.lon
+        });
+        theFourPoints.push(p2);
+        theFourPoints.push({
+            lat: p2.lat,
+            lon: p1.lon
+        });
         return theFourPoints;
-    }
+    };
+
+    // receives an array of lat/lon objects
+    // returns an array of lat/lon values as small arrays
+    this.getArrayPairs = function(objectPairs) {
+        var arrayPairs = [];
+
+        for (var i = 0; i < objectPairs.length; i++) {
+            arrayPairs.push([
+                objectPairs[i].lat,
+                objectPairs[i].lon
+            ]);
+        }
+
+        return arrayPairs;
+    };
 
     // main out API function
     this.getNewItem = function() {
@@ -130,10 +161,6 @@ var ItemGenerator = function() {
             distributionCorners.push(
                 distributionCorners[0]
             );
-        } else {
-            distributionCorners = this.getSquare(
-                distributionCorners
-            );
         }
 
         var affectedCorners = [];
@@ -146,10 +173,6 @@ var ItemGenerator = function() {
         if (affectedCornersNo > 2) {
             affectedCorners.push(
                 affectedCorners[0]
-            );
-        } else {
-            affectedCorners = this.getSquare(
-                affectedCorners
             );
         }
 
