@@ -1,17 +1,30 @@
-var readlineSync = require('readline-sync');
+var fs = require('fs');
 
-var dimensiune = readlineSync.question('Dimensiune: ');
-
-var matrice = [];
-for (var i = 0; i < dimensiune; i++) {
-  var linie = [];
-  for (var j = 0; j < dimensiune; j++) {
-    var element = readlineSync.question('Elementul nr ' + (j + 1) + ' din linia ' + (i + 1) + ': ');
-    linie[j] = element;
-  }
-  matrice[i] = linie;
+var compuneIndex = function(index) {
+    var rezultat;
+    if (index < 10) {
+        rezultat = '00' + index;
+    } else if (index < 100) {
+        rezultat = '0' + index;
+    } else {
+        rezultat = '' + index;
+    }
+    return rezultat;
 }
 
-for (var i = 0; i < dimensiune; i++) {
-  console.log(matrice[i]);
+for (var i = 0; i <= 111; i++) {
+    fs.writeFileSync(
+        __dirname + '/insight' + compuneIndex(i) + '.json',
+        ''
+    );
 }
+
+var obj1 = {
+    a: 2,
+    b: 'dasfas',
+    c: {
+        ee: 4
+    }
+};
+
+console.log(obj1);
