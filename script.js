@@ -7,7 +7,11 @@
 
 // TODO: presentation @ all hands meeting
 
+// measure miliseconds of execution
 
+// for too long time, reiterate algorithm
+
+// for edge cases change the algorithm
 
 
 var fs = require('fs');
@@ -84,8 +88,12 @@ var ItemGenerator = function() {
         };
     }
 
-    this.getSquare = function(point1, point2) {
+    this.getSquare = function(theTwoPoints) {
+        var theFourPoints = [];
 
+
+
+        return theFourPoints;
     }
 
     // main out API function
@@ -124,8 +132,7 @@ var ItemGenerator = function() {
             );
         } else {
             distributionCorners = this.getSquare(
-                distributionCorners[0],
-                distributionCorners[1]
+                distributionCorners
             );
         }
 
@@ -142,8 +149,7 @@ var ItemGenerator = function() {
             );
         } else {
             affectedCorners = this.getSquare(
-                affectedCorners[0],
-                affectedCorners[1]
+                affectedCorners
             );
         }
 
