@@ -5,3 +5,13 @@ fs.readFile( __dirname + '/test.xml', function (err, data) {
   }
   console.log(data.toString());
 });
+
+//==============================================
+
+var lineReader = require('readline').createInterface({
+  input: require('fs').createReadStream('test.xml')
+});
+
+lineReader.on('line', function (line) {
+  console.log('Line from file:', line);
+});
