@@ -10,8 +10,8 @@ var WORLD_MAX_LAT = 90;
 var WORLD_MIN_LON = -180;
 var WORLD_MAX_LON = 180;
 
-var ITEM_MIN_SIZE = 0.01;
-var ITEM_MAX_SIZE = 0.1;
+var ITEM_MIN_RADIUS = 0.01;
+var ITEM_MAX_RADIUS = 0.1;
 
 var MAX_CORNERS = 8;
 var MIN_CORNERS = 1;
@@ -36,25 +36,47 @@ var ItemGenerator = function() {
     this.randomFromRange = function(min, max) {
         return ((max - min) * Math.random()) + min;
     };
+    this.randomIntFromRange = function(min, max) {
+        max = max + 1;
+        var value = ((max - min) * Math.random()) + min;
+        return Math.floor(value);
+    };
 
-    this.getLat = function() {
+    this.getWorldLat = function() {
         return this.randomFromRange(WORLD_MIN_LAT, WORLD_MAX_LAT);
     };
 
-    this.getLon = function() {
+    this.getWorldLon = function() {
         return this.randomFromRange(WORLD_MIN_LON, WORLD_MAX_LON);
     };
 
+    // main out API function
     this.getNewItem = function() {
+
+        var basePoint = {
+            lat: this.getWorldLat(),
+            lon: this.getWorldLon()
+        };
+
+        var affectedCornersNo = this.randomIntFromRange(MIN_CORNERS, MAX_CORNERS);
+        var distributionCornersNo = this.randomIntFromRange(MIN_CORNERS, MAX_CORNERS);
+
+        var affectedCorners = [];
+        for (var i = 0; i < affectedCornersNo; i++) {
+            affectedCorners[i] = {
+
+            };
+        }
+
         return {
             affected: {
-                lat: this.getLat()
+                lat: this.getWorldLat()
             },
             distribution: {
-                lon: this.getLon()
+                lon: this.getWorldLon()
             }
         }
-    }
+    };
 
 };
 
