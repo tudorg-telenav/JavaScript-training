@@ -6,36 +6,35 @@ var obj1 = {
     }
 };
 
-var Constr = function(a, b) {
-    this.a = a;
-    this.b = b;
-}
-
-var obj2 = new Constr(3, 4);
-obj2.c = new Constr(4, 4);
-
-console.log(JSON.stringify(obj2));
-console.log(JSON.stringify(obj1));
-
-console.log(obj1);
-console.log(typeof obj1);
-console.log(typeof JSON.stringify(obj1));
-
-var jsonString = JSON.stringify(obj1, null, 4);
-
-console.log(JSON.parse(jsonString));
-console.log(typeof JSON.parse(jsonString));
-
-
-console.log(jsonString);
 
 var fs = require('fs');
 
 
+var ReprezentareFisierJSON = function(obiectBaza, indexFisier) {
+    this.obiectBaza = obiectBaza;
+    this.indexFisier = indexFisier;
+    this.numeFisier = __dirname + '/insight' + indexFisier + '.json';
+    
+    this.creazaFisier = function() {
+        fs.writeFileSync(
+            this.numeFisier,
+            JSON.stringify(this.obiectBaza, null, 4)
+        );
+    }
+}
+
+
+var obiecte = [];
 
 for (var i = 0; i <= 4; i++) {
-    fs.writeFileSync(
-        __dirname + '/insight' + i + '.json',
-        jsonString
+
+    obiecte[i] = new ReprezentareFisierJSON(
+        obj1,
+        i
     );
-} 
+
+    obiecte[i].creazaFisier();
+
+}
+
+console.log(obiecte);
