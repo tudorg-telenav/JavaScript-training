@@ -5,6 +5,19 @@ var uuid = require('node-uuid');
 
 var TOTAL_ITEMS = 5;
 
+var WORLD_MIN_LAT = -90;
+var WORLD_MAX_LAT = 90;
+var WORLD_MIN_LON = -180;
+var WORLD_MAX_LON = 180;
+
+var ITEM_MIN_SIZE = 0.01;
+var ITEM_MAX_SIZE = 0.1;
+
+var MAX_CORNERS = 8;
+var MIN_CORNERS = 1;
+
+
+
 var ReprezentareFisierJSON = function(obiectBaza, indexFisier) {
     this.obiectBaza = obiectBaza;
     this.indexFisier = indexFisier;
@@ -20,19 +33,6 @@ var ReprezentareFisierJSON = function(obiectBaza, indexFisier) {
 
 var ItemGenerator = function() {
 
-    var WORLD_MIN_LAT = -90;
-    var WORLD_MAX_LAT = 90;
-    var WORLD_MIN_LON = -180;
-    var WORLD_MAX_LON = 180;
-
-    var ITEM_MIN_SIZE = 0.01;
-    var ITEM_MAX_SIZE = 0.1;
-
-    var MAX_CORNERS = 8;
-    var MIN_CORNERS = 1;
-
-    
-
     this.randomFromRange = function(min, max) {
         return ((max - min) * Math.random()) + min;
     };
@@ -45,7 +45,6 @@ var ItemGenerator = function() {
         return this.randomFromRange(WORLD_MIN_LON, WORLD_MAX_LON);
     };
 
-    //main 'OUT' method for the object's future user
     this.getNewItem = function() {
         return {
             affected: {
