@@ -1,8 +1,7 @@
-var fs = require('fs');
 var uuid = require('node-uuid');
 var inside = require('point-in-polygon');
 
-
+var jsonFiles = require('./jsonFiles');
 
 var TOTAL_ITEMS = 5;
 
@@ -17,23 +16,6 @@ var ITEM_MAX_RADIUS = 0.1;
 var MAX_CORNERS = 7;
 var MIN_CORNERS = 2;
 
-
-
-var ReprezentareFisierJSON = function(
-    obiectBaza,
-    indexFisier
-) {
-    this.obiectBaza = obiectBaza;
-    this.indexFisier = indexFisier;
-    this.getProximityPointFisier = __dirname + '/insight' + indexFisier + '.json';
-    
-    this.creazaFisier = function() {
-        fs.writeFileSync(
-            this.getProximityPointFisier,
-            JSON.stringify(this.obiectBaza, null, 4)
-        );
-    }
-}
 
 var ItemGenerator = function() {
 
@@ -179,7 +161,7 @@ for (var i = 0; i < TOTAL_ITEMS; i++) {
         affectedArea: poligonPairItem.affected
     };
 
-    obiecte[i] = new ReprezentareFisierJSON(
+    obiecte[i] = new jsonFiles.IndexedFile(
         newObject,
         i
     );
