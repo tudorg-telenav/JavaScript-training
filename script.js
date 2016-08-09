@@ -209,3 +209,4 @@ for (var i = 0; i < TOTAL_ITEMS; i++) {
 
 // TODO: adding unit tests for small algorithms (Jasmine)
 
+// TODO: split code into modules
