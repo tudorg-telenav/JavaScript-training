@@ -4,7 +4,25 @@ var inside = require('point-in-polygon');
 var jsonFiles = require('./jsonFiles');
 var generators = require('./generators');
 
-var TOTAL_ITEMS = 5;
+var TOTAL_ITEMS = parseInt(process.argv[2]);
+if (process.argv[2] == undefined) {
+    console.log('Please enter an argument');
+    process.exit();
+}
+if (isNaN(TOTAL_ITEMS)) {
+    console.log('The first argument must be a number');
+    process.exit();
+}
+if (TOTAL_ITEMS < 1) {
+    console.log('The first argument must be a positive number');
+    process.exit();
+}
+if (parseFloat(process.argv[2]) % 1 !== 0) {
+    console.log('The first argument must be an integer');
+    process.exit();
+}
+
+//var TOTAL_ITEMS = argumentsParser.getTotalItems(); // TODO
 
 var obiecte = [];
 var itemGenerator = new generators.ItemGenerator();
@@ -52,3 +70,5 @@ for (var i = 0; i < TOTAL_ITEMS; i++) {
 // TODO: adding unit tests for small algorithms (Jasmine)
 
 // TODO: split code into modules
+
+process.exit(); // not having to stop the process manually in VSCode
